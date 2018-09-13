@@ -26,10 +26,6 @@ class NhadatProperty(scrapy.Spider):
     }
 
     def start_requests(self):
-        # url='https://www.nhadat.net/537740886/can-ho-cao-cap-thong-minh-5-sao-q7-noi-that-toto-panasonic-malloca-ck-cao-3-18'
-        # # url='https://www.nhadat.net/492744809/dang-cap-thuong-luu-charmington-iris-block-iris-luxury'
-        # yield scrapy.Request(url=url, callback=self.parse)
-
         df=pd.read_csv('./home_page_output.csv',usecols=['house_link'])
         for index, line in enumerate(df['house_link']):
             urls=line.split(',')
@@ -72,20 +68,6 @@ class NhadatProperty(scrapy.Spider):
             else:
                 # print("na feature",feature)
                 item[item_list[index]] ='NA'
-
-        #print(main_features.index('Location'),main_features_text[main_features.index('Location')])
-        # for main_feature in main_features:
-        #     item['house_location']=main_features[0].text.strip(' \r\n')
-        #     item['usable_area']=main_features[1].text.strip(' \r\n')
-        #     item['num_floors']=main_features[2].text.strip(' \r\n')
-        #     item['num_bedrooms']=main_features[3].text.strip(' \r\n')
-        #     item['num_toilets']=main_features[4].text.strip(' \r\n')
-        #     item['year_of_construction']=main_features[5].text.strip(' \r\n')
-        #     item['pile']=main_features[6].text.strip(' \r\n')
-        #     item['direction']=main_features[7].text.strip(' \r\n')
-        #     item['road_info']=main_features[8].text.strip(' \r\n')
-        #     item['legal']=main_features[9].text.strip(' \r\n')
-        # #print(item)
         return item
 
 
