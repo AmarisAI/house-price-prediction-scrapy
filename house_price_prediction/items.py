@@ -41,4 +41,5 @@ class NhadatPropertyItem(scrapy.Item):
     project=scrapy.Field()
     utilities=scrapy.Field()
     num_utilities=scrapy.Field()
+    description=scrapy.Field()
     pass
