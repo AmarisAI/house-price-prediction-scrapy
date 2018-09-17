@@ -26,7 +26,9 @@ class NhadatProperty(scrapy.Spider):
     }
     translator=Translator()
     def start_requests(self):
-        df=pd.read_csv('./home_page_output.csv',usecols=['house_link'])
+        # url = 'https://www.nhadat.net/808127049/cho-thue-ban-can-ho-dich-vu-day-du-tien-nghi'
+        # yield scrapy.Request(url=url, callback=self.parse)
+        df=pd.read_csv('./data/home_page_output.csv',usecols=['house_link'])
         for index, line in enumerate(df['house_link']):
             urls=line.split(',')
             for i, url in enumerate(urls):
@@ -95,14 +97,14 @@ class NhadatProperty(scrapy.Spider):
         title_info=self._get_title_information(response,item)
 
         main_features=self._get_main_features(response,item)
-        utilities=self._get.utilities(response,item)
+        utilities=self._get_utilities(response,item)
 
         item['num_utilities']=len(item['utilities'])
 
         item['description']= self.translator.translate(strip_emoji(response.xpath('//div[@class="swptext"]/div/p/text()').extract()),dest='en')
         item['description']= [desc.text.strip(' /r/n') for desc in item['description']]
         self.logger.info('item %s', item)
-        print(item)
+        # print(item['description'])
         yield item
 
 
